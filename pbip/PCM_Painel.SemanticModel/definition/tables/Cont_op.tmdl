@@ -1,0 +1,168 @@
+table Cont_op
+	lineageTag: 9a820991-8a01-4e34-a530-3d022570cb5a
+
+	measure 'Itens (Cont_op)' =
+			COUNTROWS ( Cont_op )
+		formatString: #,0
+		lineageTag: d3c29cef-2e96-4f45-a843-c70070f1f637
+
+	measure 'Itens com RT em avanço' =
+			CALCULATE ( COUNTROWS ( Cont_op ), Cont_op[Motivo da RT em avanço] <> BLANK () )
+		formatString: #,0
+		lineageTag: eef48d58-addb-47d9-a38b-33fd8c9a50c8
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: cf971522-7bd2-4e74-b25d-0960fb1d0b54
+		summarizeBy: none
+		sourceColumn: ID
+
+	column 'Chave (Poço+Fase+PIOS)'
+		dataType: string
+		lineageTag: a2bef8c6-6586-4b79-8913-1a6d53bfd843
+		summarizeBy: none
+		sourceColumn: Chave (Poço+Fase+PIOS)
+
+	column NP
+		dataType: string
+		lineageTag: 76a32939-cbb4-4dff-8ded-5219a60c3f88
+		summarizeBy: none
+		sourceColumn: NP
+
+	column NS
+		dataType: string
+		lineageTag: 35e37c8c-245f-49eb-8cb4-78ff753731c7
+		summarizeBy: none
+		sourceColumn: NS
+
+	column NP_Norm
+		dataType: string
+		lineageTag: 4cb1b6bf-a080-4048-9fca-244ab249cf06
+		summarizeBy: none
+		sourceColumn: NP_Norm
+
+	column NS_Norm
+		dataType: string
+		lineageTag: 47b846e0-1a7c-414e-8fa0-76ec2790e989
+		summarizeBy: none
+		sourceColumn: NS_Norm
+
+	column NP_NS
+		dataType: string
+		lineageTag: 9d95b614-35ef-4995-88a7-d119e8a5f315
+		summarizeBy: none
+		sourceColumn: NP_NS
+
+	column 'Descrição'
+		dataType: string
+		lineageTag: 49bd527d-05b3-458b-b74d-f0d3fd43477a
+		summarizeBy: none
+		sourceColumn: Descrição
+
+	column Fase
+		dataType: string
+		lineageTag: e05226af-5f69-4999-8683-aa7d1004bc9d
+		summarizeBy: none
+		sourceColumn: Fase
+
+	column TAG
+		dataType: string
+		lineageTag: 9fbd5d4a-7f77-4f9e-9568-b2ccc048f4dc
+		summarizeBy: none
+		sourceColumn: TAG
+
+	column 'Sonda / Barco'
+		dataType: string
+		lineageTag: 8b0ab4cd-e135-43fb-9e81-63b591c4feaa
+		summarizeBy: none
+		sourceColumn: Sonda / Barco
+
+	column 'Poço'
+		dataType: string
+		lineageTag: f369966e-5a88-42db-8132-340a98a9c91e
+		summarizeBy: none
+		sourceColumn: Poço
+
+	column 'Responsável DISP'
+		dataType: string
+		lineageTag: bffb2a75-ffaa-47ea-b05b-5cb985236df4
+		summarizeBy: none
+		sourceColumn: Responsável DISP
+
+	column 'Status Processo'
+		dataType: string
+		lineageTag: 46e1adf3-42e8-4663-9441-bf6234823066
+		summarizeBy: none
+		sourceColumn: Status Processo
+
+	column 'Status manutenção'
+		dataType: string
+		lineageTag: 1a395466-91b3-4a54-8d50-5522a07e8a7f
+		summarizeBy: none
+		sourceColumn: Status manutenção
+
+	column 'Vencimento da manutenção'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: f057a2c6-1076-477e-bcca-9083c5afdc05
+		summarizeBy: none
+		sourceColumn: Vencimento da manutenção
+
+	column Venc_Final
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 0522d5df-a800-401d-92b1-8874551be266
+		summarizeBy: none
+		sourceColumn: Venc_Final
+
+	column Venc_Origem
+		dataType: string
+		lineageTag: ccf22d9a-7095-495a-82e1-3d20a6ff7b09
+		summarizeBy: none
+		sourceColumn: Venc_Origem
+
+	column 'Status PCM'
+		dataType: string
+		lineageTag: 6922d49b-0da7-41b9-9228-101e33e824ad
+		summarizeBy: none
+		sourceColumn: Status PCM
+
+	column 'Motivo da RT em avanço'
+		dataType: string
+		lineageTag: 1fbb46ed-ade8-40f5-9d15-bf129a4591d2
+		summarizeBy: none
+		sourceColumn: Motivo da RT em avanço
+
+	column 'Relatório de END'
+		dataType: string
+		lineageTag: 6d2ecaf5-eab1-403e-8c4f-6a6814be6ce1
+		summarizeBy: none
+		sourceColumn: Relatório de END
+
+	partition Cont_op = m
+		mode: import
+		source =
+			let
+			    Fonte = SharePoint.Tables(SiteContOp, [ApiVersion = 15]),
+			    Lista = Fonte{[Title = NomeListaContOp]}[Items],
+			    Colunas = {"ID", "Poço + Fase + PIOS", "NP", "NS", "DESCRIÇÃO", "Fase", "TAG", "Sonda / Barco", "Poço", "Responsável DISP", "Status Processo", "Status manutenção", "Vencimento da manutenção", "Status PCM", "Motivo da RT em avanço", "Relatório de END"},
+			    // MissingField.UseNull: se um nome de coluna diferir no SharePoint, a coluna fica vazia em vez de quebrar a atualização
+			    Sel = Table.SelectColumns(Lista, Colunas, MissingField.UseNull),
+			    ComId = Table.SelectRows(Sel, each [ID] <> null),
+			    Renom = Table.RenameColumns(ComId, {{"Poço + Fase + PIOS", "Chave (Poço+Fase+PIOS)"}, {"DESCRIÇÃO", "Descrição"}}),
+			    Tipos = Table.TransformColumnTypes(Renom, {{"ID", Int64.Type}, {"NP", type text}, {"NS", type text}, {"Descrição", type text}, {"Fase", type text}, {"TAG", type text}, {"Sonda / Barco", type text}, {"Poço", type text}, {"Responsável DISP", type text}, {"Status Processo", type text}, {"Status manutenção", type text}, {"Status PCM", type text}, {"Motivo da RT em avanço", type text}, {"Relatório de END", type text}}),
+			    // data que nunca gera erro: o que não for data vira null
+			    Venc = Table.TransformColumns(Tipos, {{"Vencimento da manutenção", each try Date.From(_) otherwise null, type nullable date}}),
+			    NPn = Table.AddColumn(Venc, "NP_Norm", each fNormalizaNP([NP]), type text),
+			    NSn = Table.AddColumn(NPn, "NS_Norm", each fNormalizaNS([NS]), type text),
+			    Chave = Table.AddColumn(NSn, "NP_NS", each if [NP_Norm] = null then null else [NP_Norm] & "|" & (if [NS_Norm] = null then "" else Text.Upper([NS_Norm])), type text),
+			    St = Table.AddColumn(Chave, "St", each fParseStatusManutencao([Status manutenção])),
+			    VencF = Table.AddColumn(St, "Venc_Final", each if [Vencimento da manutenção] <> null then [Vencimento da manutenção] else [St][Venc], type nullable date),
+			    Orig = Table.AddColumn(VencF, "Venc_Origem", each if [Vencimento da manutenção] <> null then "Coluna" else if [St][Venc] <> null then "Texto do status" else null, type text),
+			    SemSt = Table.RemoveColumns(Orig, {"St"}),
+			    Vazios = Table.ReplaceValue(SemSt, "", null, Replacer.ReplaceValue, {"Motivo da RT em avanço", "Status Processo", "Status PCM"}),
+			    Rotulo = Table.ReplaceValue(Vazios, null, "(sem status)", Replacer.ReplaceValue, {"Status Processo", "Status PCM"}),
+			    Ordem = Table.ReorderColumns(Rotulo, {"ID", "Chave (Poço+Fase+PIOS)", "NP", "NS", "NP_Norm", "NS_Norm", "NP_NS", "Descrição", "Fase", "TAG", "Sonda / Barco", "Poço", "Responsável DISP", "Status Processo", "Status manutenção", "Vencimento da manutenção", "Venc_Final", "Venc_Origem", "Status PCM", "Motivo da RT em avanço", "Relatório de END"})
+			in
+			    Ordem

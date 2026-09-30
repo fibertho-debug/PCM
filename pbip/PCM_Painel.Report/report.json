@@ -1,0 +1,81 @@
+{
+  "config": "{\"version\": \"5.59\", \"activeSectionIndex\": 0, \"defaultDrillFilterOtherVisuals\": true}",
+  "layoutOptimization": 0,
+  "resourcePackages": [],
+  "sections": [
+    {
+      "config": "{}",
+      "displayName": "Painel PCM",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720,
+      "name": "ReportSection1",
+      "visualContainers": [
+        {
+          "config": "{\"name\": \"v_faixa\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 16, \"y\": 100, \"z\": 1000, \"width\": 1248, \"height\": 310}}], \"singleVisual\": {\"visualType\": \"clusteredColumnChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Faixa_Venc.Faixa\"}], \"Series\": [{\"queryRef\": \"Vencimentos.Tipo\"}], \"Y\": [{\"queryRef\": \"Vencimentos.Itens na Faixa\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"f\", \"Entity\": \"Faixa_Venc\", \"Type\": 0}, {\"Name\": \"v\", \"Entity\": \"Vencimentos\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"f\"}}, \"Property\": \"Faixa\"}, \"Name\": \"Faixa_Venc.Faixa\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v\"}}, \"Property\": \"Tipo\"}, \"Name\": \"Vencimentos.Tipo\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v\"}}, \"Property\": \"Itens na Faixa\"}, \"Name\": \"Vencimentos.Itens na Faixa\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Vencimentos por faixa (dias até o vencimento, comparado com HOJE)'\"}}}}}]}, \"objects\": {\"dataPoint\": [], \"labels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 310,
+          "width": 1248,
+          "x": 16,
+          "y": 100,
+          "z": 1000
+        },
+        {
+          "config": "{\"name\": \"v_status\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 16, \"y\": 424, \"z\": 2000, \"width\": 620, \"height\": 280}}], \"singleVisual\": {\"visualType\": \"barChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Cont_op.Status Processo\"}], \"Y\": [{\"queryRef\": \"Cont_op.Itens (Cont_op)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c\", \"Entity\": \"Cont_op\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"Status Processo\"}, \"Name\": \"Cont_op.Status Processo\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"Itens (Cont_op)\"}, \"Name\": \"Cont_op.Itens (Cont_op)\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Itens por status do processo'\"}}}}}]}, \"objects\": {\"labels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 280,
+          "width": 620,
+          "x": 16,
+          "y": 424,
+          "z": 2000
+        },
+        {
+          "config": "{\"name\": \"v_motivo\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 650, \"y\": 424, \"z\": 3000, \"width\": 614, \"height\": 280}}], \"singleVisual\": {\"visualType\": \"barChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Cont_op.Motivo da RT em avanço\"}], \"Y\": [{\"queryRef\": \"Cont_op.Itens com RT em avanço\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c\", \"Entity\": \"Cont_op\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"Motivo da RT em avanço\"}, \"Name\": \"Cont_op.Motivo da RT em avanço\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"Itens com RT em avanço\"}, \"Name\": \"Cont_op.Itens com RT em avanço\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Motivo de RT em avanço'\"}}}}}]}, \"objects\": {\"labels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 280,
+          "width": 614,
+          "x": 650,
+          "y": 424,
+          "z": 3000
+        },
+        {
+          "config": "{\"name\": \"s_sonda\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 16, \"y\": 16, \"z\": 4000, \"width\": 300, \"height\": 70}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"Cont_op.Sonda / Barco\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c\", \"Entity\": \"Cont_op\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"Sonda / Barco\"}, \"Name\": \"Cont_op.Sonda / Barco\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Sonda / Barco'\"}}}}}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Dropdown'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 70,
+          "width": 300,
+          "x": 16,
+          "y": 16,
+          "z": 4000
+        },
+        {
+          "config": "{\"name\": \"s_pcm\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 330, \"y\": 16, \"z\": 5000, \"width\": 300, \"height\": 70}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"Cont_op.Status PCM\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c\", \"Entity\": \"Cont_op\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"Status PCM\"}, \"Name\": \"Cont_op.Status PCM\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Status PCM'\"}}}}}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Dropdown'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 70,
+          "width": 300,
+          "x": 330,
+          "y": 16,
+          "z": 5000
+        },
+        {
+          "config": "{\"name\": \"c_itens\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 650, \"y\": 16, \"z\": 6000, \"width\": 280, \"height\": 70}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"Cont_op.Itens (Cont_op)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c\", \"Entity\": \"Cont_op\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"Itens (Cont_op)\"}, \"Name\": \"Cont_op.Itens (Cont_op)\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Itens no filtro'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 70,
+          "width": 280,
+          "x": 650,
+          "y": 16,
+          "z": 6000
+        },
+        {
+          "config": "{\"name\": \"c_rt\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 950, \"y\": 16, \"z\": 7000, \"width\": 314, \"height\": 70}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"Cont_op.Itens com RT em avanço\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c\", \"Entity\": \"Cont_op\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"Itens com RT em avanço\"}, \"Name\": \"Cont_op.Itens com RT em avanço\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Itens com RT em avanço'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 70,
+          "width": 314,
+          "x": 950,
+          "y": 16,
+          "z": 7000
+        }
+      ],
+      "width": 1280
+    }
+  ]
+}

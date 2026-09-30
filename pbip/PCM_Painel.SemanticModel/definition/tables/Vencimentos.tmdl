@@ -1,0 +1,67 @@
+table Vencimentos
+	lineageTag: cf2c331b-18ab-4ee3-b7eb-cb12b529b391
+
+	measure 'Itens na Faixa' =
+			VAR o = SELECTEDVALUE ( Faixa_Venc[Ordem] )
+			VAR mn = SELECTEDVALUE ( Faixa_Venc[Dias Min] )
+			VAR mx = SELECTEDVALUE ( Faixa_Venc[Dias Max] )
+			VAR hoje = TODAY ()
+			RETURN
+			    IF (
+			        ISBLANK ( o ),
+			        COUNTROWS ( Vencimentos ),
+			        COUNTROWS (
+			            FILTER (
+			                Vencimentos,
+			                VAR d = Vencimentos[Data]
+			                VAR dias = DATEDIFF ( hoje, d, DAY )
+			                RETURN
+			                    IF ( o = 6, ISBLANK ( d ), NOT ISBLANK ( d ) && dias >= mn && dias <= mx )
+			            )
+			        ) + 0
+			    )
+		formatString: #,0
+		lineageTag: a3a1dca5-eb70-415a-b5ab-d9422d2407f5
+
+	measure 'Dias até vencer' =
+			MINX (
+			    Vencimentos,
+			    IF ( ISBLANK ( Vencimentos[Data] ), BLANK (), DATEDIFF ( TODAY (), Vencimentos[Data], DAY ) )
+			)
+		formatString: 0
+		lineageTag: a73f8cc2-1f5c-40cc-9803-97b060f12b14
+
+	column Cont_op_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: a0e1c96b-141b-4c8f-8e36-5dda90e189b0
+		summarizeBy: none
+		sourceColumn: Cont_op_ID
+
+	column Data
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 4ab04e8f-b53c-4076-99b1-9d37ab1daa41
+		summarizeBy: none
+		sourceColumn: Data
+
+	column Tipo
+		dataType: string
+		lineageTag: c090bc94-f1c1-44f9-8cd1-27266b5246dc
+		summarizeBy: none
+		sourceColumn: Tipo
+
+	partition Vencimentos = m
+		mode: import
+		source =
+			let
+			    Base = Table.SelectColumns(Cont_op, {"ID", "NP_NS", "Venc_Final"}),
+			    Manut = Table.AddColumn(Table.RenameColumns(Table.SelectColumns(Base, {"ID", "Venc_Final"}), {{"ID", "Cont_op_ID"}, {"Venc_Final", "Data"}}), "Tipo", each "Manutenção FRT/EQP", type text),
+			    // END: só itens cujo NP+NS existe na lista de END (inner join); a data é a maior validade
+			    J = Table.NestedJoin(Table.SelectColumns(Base, {"ID", "NP_NS"}), {"NP_NS"}, END_ultimo, {"NP_NS"}, "E", JoinKind.Inner),
+			    Ex = Table.ExpandTableColumn(J, "E", {"Validade_END"}, {"Data"}),
+			    EndT = Table.AddColumn(Table.RenameColumns(Table.SelectColumns(Ex, {"ID", "Data"}), {{"ID", "Cont_op_ID"}}), "Tipo", each "END", type text),
+			    Uni = Table.Combine({Manut, EndT}),
+			    Tip = Table.TransformColumnTypes(Uni, {{"Cont_op_ID", Int64.Type}, {"Data", type date}, {"Tipo", type text}})
+			in
+			    Tip

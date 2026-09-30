@@ -1,0 +1,48 @@
+table Faixa_Venc
+	lineageTag: 5058aad9-7e90-4967-a9cb-216238a9e715
+
+	column Ordem
+		dataType: int64
+		formatString: 0
+		lineageTag: 6600214b-5a99-44cb-a3de-a932c8720267
+		summarizeBy: none
+		sourceColumn: Ordem
+
+	column Faixa
+		dataType: string
+		lineageTag: 4534c968-54a2-4063-b08f-f5c54e8d5c71
+		summarizeBy: none
+		sourceColumn: Faixa
+		sortByColumn: Ordem
+
+	column 'Dias Min'
+		dataType: int64
+		formatString: 0
+		lineageTag: 27f47481-1e89-406f-95ee-525bc3dfa2cd
+		summarizeBy: none
+		sourceColumn: Dias Min
+
+	column 'Dias Max'
+		dataType: int64
+		formatString: 0
+		lineageTag: 00be23ae-a115-4437-a65d-60c3697acf50
+		summarizeBy: none
+		sourceColumn: Dias Max
+
+	partition Faixa_Venc = calculated
+		mode: import
+		source =
+			DATATABLE (
+			    "Ordem", INTEGER,
+			    "Faixa", STRING,
+			    "Dias Min", INTEGER,
+			    "Dias Max", INTEGER,
+			    {
+			        { 1, "Vencido (< 0)", -99999, -1 },
+			        { 2, "0 a 29 dias", 0, 29 },
+			        { 3, "30 a 59 dias", 30, 59 },
+			        { 4, "60 a 75 dias", 60, 75 },
+			        { 5, "> 75 dias (sem alerta)", 76, 99999 },
+			        { 6, "Sem data", 1, 0 }
+			    }
+			)

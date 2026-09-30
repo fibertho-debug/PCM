@@ -1,0 +1,47 @@
+table END_ultimo
+	lineageTag: fdfa39ad-e664-48fa-832d-d0f314d12bb2
+
+	column NP_NS
+		dataType: string
+		lineageTag: f34d5914-a908-40e3-bc38-edd4638e6a89
+		summarizeBy: none
+		sourceColumn: NP_NS
+
+	column Validade_END
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: c12827f1-75b9-4d6c-9cb0-417894835145
+		summarizeBy: none
+		sourceColumn: Validade_END
+
+	column Registros_END
+		dataType: int64
+		formatString: 0
+		lineageTag: 29e591e3-8ba5-40f1-b167-22150d11cc6d
+		summarizeBy: none
+		sourceColumn: Registros_END
+
+	column Datas_invalidas
+		dataType: int64
+		formatString: 0
+		lineageTag: bd262e39-283b-4640-81b1-2c0a512a045d
+		summarizeBy: none
+		sourceColumn: Datas_invalidas
+
+	partition END_ultimo = m
+		mode: import
+		source =
+			let
+			    Fonte = SharePoint.Tables(SiteEND, [ApiVersion = 15]),
+			    Lista = Fonte{[Title = NomeListaEND]}[Items],
+			    Sel = Table.SelectColumns(Lista, {"NP", "NS", "Data de Validade"}, MissingField.UseNull),
+			    Tx = Table.TransformColumnTypes(Sel, {{"NP", type text}, {"NS", type text}}),
+			    // hoje a coluna é texto dd/mm/aaaa; se a lista passar a ter tipo Data, o ramo Date.From assume
+			    Val = Table.AddColumn(Tx, "Validade", each let v = [Data de Validade] in if v = null then null else if Value.Is(v, type date) or Value.Is(v, type datetime) then Date.From(v) else fParseData(Text.From(v)), type nullable date),
+			    NPn = Table.AddColumn(Val, "NP_Norm", each fNormalizaNP([NP]), type text),
+			    Com = Table.SelectRows(NPn, each [NP_Norm] <> null),
+			    Chave = Table.AddColumn(Com, "NP_NS", each let n = fNormalizaNS([NS]) in [NP_Norm] & "|" & (if n = null then "" else Text.Upper(n)), type text),
+			    // regra confirmada: vale a MAIOR validade por NP+NS
+			    Grp = Table.Group(Chave, {"NP_NS"}, {{"Validade_END", each List.Max([Validade]), type nullable date}, {"Registros_END", each Table.RowCount(_), Int64.Type}, {"Datas_invalidas", each List.Count(List.Select([Validade], each _ = null)), Int64.Type}})
+			in
+			    Grp

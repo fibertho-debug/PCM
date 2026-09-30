@@ -1,0 +1,20 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+
+ref table Cont_op
+ref table END_ultimo
+ref table Vencimentos
+ref table Faixa_Venc
+ref table Eslinga
+
+ref expression SiteContOp
+ref expression NomeListaContOp
+ref expression SiteEND
+ref expression NomeListaEND
+ref expression fNormalizaNP
+ref expression fNormalizaNS
+ref expression fNSForaDoPadrao
+ref expression fParseData
+ref expression fParseStatusManutencao
