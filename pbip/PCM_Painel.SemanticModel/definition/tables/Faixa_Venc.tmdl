@@ -1,16 +1,16 @@
 table Faixa_Venc
-	lineageTag: aac05347-74a0-479d-960a-34ecbc3ad8b8
+	lineageTag: 709c2160-41ea-4f41-b696-6684bb8062fa
 
 	column Ordem
 		dataType: int64
 		formatString: 0
-		lineageTag: b50d62e0-1f74-47fd-835c-787563418bf5
+		lineageTag: 2307066a-03f6-4d38-b25e-ec7fe5c5bd1d
 		summarizeBy: none
 		sourceColumn: Ordem
 
 	column Faixa
 		dataType: string
-		lineageTag: 61828892-cae5-40f3-b8d8-1cb78c71ce96
+		lineageTag: 1fba7749-1d1d-4f9b-b70d-f13937ff2229
 		summarizeBy: none
 		sourceColumn: Faixa
 		sortByColumn: Ordem
@@ -18,14 +18,14 @@ table Faixa_Venc
 	column 'Dias Min'
 		dataType: int64
 		formatString: 0
-		lineageTag: 41f94a08-91e9-49db-9086-7dd588ff696c
+		lineageTag: f028b42a-f014-48a5-b07e-0f4255c92e22
 		summarizeBy: none
 		sourceColumn: Dias Min
 
 	column 'Dias Max'
 		dataType: int64
 		formatString: 0
-		lineageTag: cd0b6928-3a31-40e6-8255-8683a5387d6c
+		lineageTag: 245c4d2e-c656-412c-aeca-4f108bd10770
 		summarizeBy: none
 		sourceColumn: Dias Max
 

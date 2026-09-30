@@ -1,18 +1,18 @@
 /// URL do site que contem a lista Cont_op. PREENCHER.
 expression SiteContOp = "https://SEU-TENANT.sharepoint.com/sites/ProjetosdeServios-SS" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
-	lineageTag: 2bc1b6c4-efeb-4d2d-94d2-d03d2ddb962a
+	lineageTag: b2a953d9-d2a5-4f1c-9019-54b0937d5ace
 
 /// Titulo (nome de exibicao) da lista Cont_op. Confirmar.
 expression NomeListaContOp = "Cont_op" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
-	lineageTag: 28ee42a6-833a-47e1-9037-07bc40b221b8
+	lineageTag: 668d4cc1-fb50-4023-8100-be16c71e1f26
 
 /// URL do site da lista de END. PREENCHER.
 expression SiteEND = "https://SEU-TENANT.sharepoint.com/sites/QualidadeSAMSS" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
-	lineageTag: 2725daed-3a35-4a2e-a9d3-f640c160bc94
+	lineageTag: a5f62ef6-66a2-4ec3-804c-d12097be5814
 
 /// Titulo da lista de END (a URL mostra Lista Recertificao, sem acentos). Confirmar.
 expression NomeListaEND = "Lista Recertificação" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
-	lineageTag: 3edfa00f-edbd-4053-8574-8587a405b9d5
+	lineageTag: e08276eb-47e5-4928-9893-6d939dac437a
 
 expression fNormalizaNP =
 		// Normaliza NP: troca NBSP/tab/quebra por espaço, colapsa espaços repetidos, apara as pontas e põe em MAIÚSCULAS.
@@ -26,7 +26,7 @@ expression fNormalizaNP =
 		    r = Text.Upper(Text.Combine(partes, " "))
 		in
 		    if r = "" then null else r
-	lineageTag: 3796f729-f203-4e1a-ae35-a9c15e534290
+	lineageTag: 59fe9c1a-7c2b-4c7c-a555-91e7849749d8
 
 expression fNormalizaNS =
 		// Limpeza de NS: apenas espaços/NBSP (NÃO muda caixa nem reescreve o formato).
@@ -39,7 +39,7 @@ expression fNormalizaNS =
 		    r = Text.Combine(partes, " ")
 		in
 		    if r = "" then null else r
-	lineageTag: e5bb9c90-470f-41a5-a562-7cfc4b2d5de9
+	lineageTag: 923569c0-515e-48d9-bf46-bd6ddd0be80f
 
 expression fNSForaDoPadrao =
 		// TRUE quando o NS não segue o padrão PROVISÓRIO "NS-" + dígitos (ex.: NS-01).
@@ -52,7 +52,7 @@ expression fNSForaDoPadrao =
 		         and List.AllTrue(List.Transform(Text.ToList(resto), each _ >= "0" and _ <= "9"))
 		in
 		    not ok
-	lineageTag: fd870f12-72ae-47d4-8d69-33d11854d94b
+	lineageTag: 17ec81c4-ac14-460b-a5a2-5e30ebb87e20
 
 expression fParseData =
 		// Converte texto dd/mm/aaaa (estrito, após trim) em date. Qualquer outro formato -> null (nunca adivinha).
@@ -65,7 +65,7 @@ expression fParseData =
 		    r = if formatoOk then try Date.FromText(s, [Format = "dd/MM/yyyy", Culture = "pt-BR"]) otherwise null else null
 		in
 		    r
-	lineageTag: e86a7acf-3dc2-44a3-a961-e227b4c22b4e
+	lineageTag: 683b8721-3a03-4916-942e-823c60335011
 
 expression fParseStatusManutencao =
 		// Extrai Vencimento e END do texto livre de "Status manutenção".
@@ -84,5 +84,5 @@ expression fParseStatusManutencao =
 		    fim  = apos("END")
 		in
 		    [Venc = venc, END = fim]
-	lineageTag: 959987e6-ea30-41cd-bf63-20a2bfe6cf68
+	lineageTag: bff6d2bb-c518-441a-8254-4b635d90181a
 

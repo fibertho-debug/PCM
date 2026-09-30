@@ -1,0 +1,17 @@
+{
+  "config": "{\"version\": \"5.59\", \"activeSectionIndex\": 0, \"defaultDrillFilterOtherVisuals\": true}",
+  "layoutOptimization": 0,
+  "resourcePackages": [],
+  "sections": [
+    {
+      "config": "{}",
+      "displayName": "Vazio",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720,
+      "name": "ReportSection1",
+      "visualContainers": [],
+      "width": 1280
+    }
+  ]
+}
