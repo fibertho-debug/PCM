@@ -137,6 +137,8 @@ def main():
     ap.add_argument("--padrao", required=True)
     ap.add_argument("--pcm", required=True)
     ap.add_argument("--saida", default="../relatorios")
+    ap.add_argument("--com-eslinga", action="store_true",
+                    help="gera o relatorio e) de eslingas (desligado: dados ainda serao alimentados)")
     a = ap.parse_args()
     saida = Path(a.saida)
     hoje = dt.date.today().isoformat()
@@ -145,7 +147,8 @@ def main():
 
     wb = openpyxl.load_workbook(a.padrao, read_only=True, data_only=True)
     wp = openpyxl.load_workbook(a.pcm, read_only=True, data_only=True)
-    op, end, esl = le_aba(wb, "Operações"), le_aba(wb, "END"), le_aba(wb, "Eslinga")
+    op, end = le_aba(wb, "Operações"), le_aba(wb, "END")
+    esl = le_aba(wb, "Eslinga") if a.com_eslinga else None
     cat, cad = le_catalogo_e_cadastros(wb)
     itens = pd.concat([le_itens_pcm(wp, "ITH", "PCM real (ITH BUZ-118D NS-61 Rev.0)"),
                        le_itens_pcm(wb, "ITH", "Padrao Sonda (aba ITH)")], ignore_index=True)
@@ -249,31 +252,32 @@ def main():
                ("d", "linhas repetidas por NP+NS normalizado", int(e.np_ns_norm.duplicated().sum()), None)]
 
     # ---- e) Eslingas ---------------------------------------------------------
-    s = esl.copy()
-    s["id_norm"] = s["ID_Eslinga"].map(lambda v: (limpa(v) or "").upper() or None)
-    s["linhas_com_mesmo_id"] = s.groupby("id_norm")["id_norm"].transform("size")
-    s["certificados_distintos_no_id"] = s.groupby("id_norm")["Eslinga"].transform("nunique")
-    flags = {
-        "ID_DUPLICADO": s.id_norm.notna() & (s.linhas_com_mesmo_id > 1),
-        "SEM_ID": s.id_norm.isna(),
-        "EQUI_N_IDENTIFICADO": s["Status_eslinga"].astype(str).str.contains("n_identificado", case=False),
-        "SEM_VALIDADE": s["Validade(M/D/A)"].isna()}
-    s["motivo"] = pd.concat([m.map({True: k, False: ""}) for k, m in flags.items()], axis=1).apply(
-        lambda r: "+".join(x for x in r if x), axis=1)
-    re_ = s[s.motivo != ""].sort_values(["id_norm", "linha_planilha"], na_position="last")
-    cols = ["linha_planilha", "ID_Eslinga", "motivo", "linhas_com_mesmo_id", "certificados_distintos_no_id",
-            "Eslinga", "ID_BR", "Validade(M/D/A)", "Status_eslinga", "Localização", "Capacidade(T)",
-            "Comprimento(m)", "Pernas", "Cliente", "NP"]
-    salva(re_[cols], saida / "e_eslingas_id_duplicado_ou_nao_identificado.csv",
-          cab("E) Eslingas: ID duplicado, sem ID, 'Equi_n_identificado' ou sem validade") +
-          ["ID repetido com certificados diferentes pode ser recertificacao: confirmar antes de apagar."])
-    bruto_dup = int(s["ID_Eslinga"].astype(str).duplicated().sum())
-    resumo += [("e", "linhas na lista", len(s), None),
-               ("e", "IDs repetidos alem do 1o (contagem bruta, inclui vazios)", bruto_dup, 262),
-               ("e", "  dos quais: IDs nao vazios repetidos", int((flags['ID_DUPLICADO'] & s.id_norm.duplicated()).sum()), None),
-               ("e", "  dos quais: linhas sem ID", int(flags["SEM_ID"].sum()), None),
-               ("e", "Equi_n_identificado", int(flags["EQUI_N_IDENTIFICADO"].sum()), 37),
-               ("e", "sem validade", int(flags["SEM_VALIDADE"].sum()), None)]
+    if a.com_eslinga:
+        s = esl.copy()
+        s["id_norm"] = s["ID_Eslinga"].map(lambda v: (limpa(v) or "").upper() or None)
+        s["linhas_com_mesmo_id"] = s.groupby("id_norm")["id_norm"].transform("size")
+        s["certificados_distintos_no_id"] = s.groupby("id_norm")["Eslinga"].transform("nunique")
+        flags = {
+            "ID_DUPLICADO": s.id_norm.notna() & (s.linhas_com_mesmo_id > 1),
+            "SEM_ID": s.id_norm.isna(),
+            "EQUI_N_IDENTIFICADO": s["Status_eslinga"].astype(str).str.contains("n_identificado", case=False),
+            "SEM_VALIDADE": s["Validade(M/D/A)"].isna()}
+        s["motivo"] = pd.concat([m.map({True: k, False: ""}) for k, m in flags.items()], axis=1).apply(
+            lambda r: "+".join(x for x in r if x), axis=1)
+        re_ = s[s.motivo != ""].sort_values(["id_norm", "linha_planilha"], na_position="last")
+        cols = ["linha_planilha", "ID_Eslinga", "motivo", "linhas_com_mesmo_id", "certificados_distintos_no_id",
+                "Eslinga", "ID_BR", "Validade(M/D/A)", "Status_eslinga", "Localização", "Capacidade(T)",
+                "Comprimento(m)", "Pernas", "Cliente", "NP"]
+        salva(re_[cols], saida / "e_eslingas_id_duplicado_ou_nao_identificado.csv",
+              cab("E) Eslingas: ID duplicado, sem ID, 'Equi_n_identificado' ou sem validade") +
+              ["ID repetido com certificados diferentes pode ser recertificacao: confirmar antes de apagar."])
+        bruto_dup = int(s["ID_Eslinga"].astype(str).duplicated().sum())
+        resumo += [("e", "linhas na lista", len(s), None),
+                   ("e", "IDs repetidos alem do 1o (contagem bruta, inclui vazios)", bruto_dup, 262),
+                   ("e", "  dos quais: IDs nao vazios repetidos", int((flags['ID_DUPLICADO'] & s.id_norm.duplicated()).sum()), None),
+                   ("e", "  dos quais: linhas sem ID", int(flags["SEM_ID"].sum()), None),
+                   ("e", "Equi_n_identificado", int(flags["EQUI_N_IDENTIFICADO"].sum()), 37),
+                   ("e", "sem validade", int(flags["SEM_VALIDADE"].sum()), None)]
 
     # ---- f) classes e operacoes fora dos cadastros --------------------------
     linhas = []

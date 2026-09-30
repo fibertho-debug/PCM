@@ -25,12 +25,6 @@ Gerado em 2026-09-30. Fonte: copias dentro das planilhas (nao o SharePoint ao vi
 | d | linhas repetidas alem da 1a (NP NS) | 1455 | 1455 | sim |
 | d | linhas envolvidas em NP NS repetido | 2217 |  |  |
 | d | linhas repetidas por NP+NS normalizado | 1603 |  |  |
-| e | linhas na lista | 1685 |  |  |
-| e | IDs repetidos alem do 1o (contagem bruta, inclui vazios) | 262 | 262 | sim |
-| e |   dos quais: IDs nao vazios repetidos | 191 |  |  |
-| e |   dos quais: linhas sem ID | 76 |  |  |
-| e | Equi_n_identificado | 37 | 37 | sim |
-| e | sem validade | 13 |  |  |
 | f | classes em uso fora do cadastro (catalogo) | 4 | 4 | sim |
 | f | codigos de operacao em Cont_op fora de Dados!M | 43 |  |  |
 | f | itens do PCM real com classe fora do cadastro | 32 | 31 | **NAO** |

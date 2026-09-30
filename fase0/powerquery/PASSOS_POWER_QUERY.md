@@ -9,7 +9,8 @@ Cole cada `.pq` como **consulta em branco** com o nome do arquivo (ex.: `fNormal
 | END | `Validade = fParseData([Data de Validade])` (tipo *Data*) | datas texto → data; inválidas viram `null` |
 | END | `NP_NS = [NP_Norm] & "\|" & [NS_Norm]` | chave NP+NS normalizada (não usar a coluna `NP NS` do SharePoint) |
 | Cont_op | `V = fParseStatusManutencao([Status manutenção])`; `Venc_Final = [Vencimento da manutenção] ?? V[Venc]` | recupera vencimento que só está no texto |
-| Eslinga | `ID_Norm = fNormalizaNP([ID_Eslinga])` | ID sem espaço/caixa; vazio = `null` |
+
+_Eslinga: sem regras por ora (dados ainda serão alimentados)._
 
 ## Decisões embutidas (revise)
 
