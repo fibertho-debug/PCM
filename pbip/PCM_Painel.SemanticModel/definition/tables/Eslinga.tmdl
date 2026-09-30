@@ -1,34 +1,34 @@
 table Eslinga
-	lineageTag: 1420148d-eaeb-49aa-969b-6e8ea64141e7
+	lineageTag: 79e8861c-b2cf-423b-8955-6002c1bdc9de
 
 	column Eslinga
 		dataType: string
-		lineageTag: b3857b58-3029-48a0-8ace-07f11c64d1e2
+		lineageTag: 694c417e-c7d0-4319-98bc-bd50733f37a6
 		summarizeBy: none
 		sourceColumn: Eslinga
 
 	column ID_Eslinga
 		dataType: string
-		lineageTag: dc9c0731-3ed9-4b40-970b-362cc5343db8
+		lineageTag: c13de4eb-3abc-4dd8-8865-96de83501a57
 		summarizeBy: none
 		sourceColumn: ID_Eslinga
 
 	column Validade
 		dataType: dateTime
 		formatString: dd/mm/yyyy
-		lineageTag: 2793410e-0988-47c1-9466-7f01346ab71f
+		lineageTag: 2af5744e-f512-4617-b4f5-d57e6b9ff051
 		summarizeBy: none
 		sourceColumn: Validade
 
 	column Status_eslinga
 		dataType: string
-		lineageTag: 84d16bab-83e6-4eb7-b63a-d2d026929152
+		lineageTag: 7882980b-3047-43fd-83aa-b5362e39990c
 		summarizeBy: none
 		sourceColumn: Status_eslinga
 
 	column 'Localização'
 		dataType: string
-		lineageTag: ed86f284-9c19-45eb-88b5-9dec79b2b2f0
+		lineageTag: 471eb425-d72f-44b3-89a5-b025365ecffe
 		summarizeBy: none
 		sourceColumn: Localização
 

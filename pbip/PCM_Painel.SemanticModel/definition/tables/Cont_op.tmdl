@@ -1,142 +1,142 @@
 table Cont_op
-	lineageTag: 9a820991-8a01-4e34-a530-3d022570cb5a
+	lineageTag: a284e6b9-0189-4a66-acf2-951b1b572edf
 
 	measure 'Itens (Cont_op)' =
 			COUNTROWS ( Cont_op )
 		formatString: #,0
-		lineageTag: d3c29cef-2e96-4f45-a843-c70070f1f637
+		lineageTag: 42598f1e-75c6-4d92-99e7-f55b00bf4586
 
 	measure 'Itens com RT em avanço' =
 			CALCULATE ( COUNTROWS ( Cont_op ), Cont_op[Motivo da RT em avanço] <> BLANK () )
 		formatString: #,0
-		lineageTag: eef48d58-addb-47d9-a38b-33fd8c9a50c8
+		lineageTag: 1726ad2f-58b2-4593-92d0-c3d7a8ffb3c0
 
 	column ID
 		dataType: int64
 		formatString: 0
-		lineageTag: cf971522-7bd2-4e74-b25d-0960fb1d0b54
+		lineageTag: 5880a2af-f965-4f88-890f-bc93a0583269
 		summarizeBy: none
 		sourceColumn: ID
 
 	column 'Chave (Poço+Fase+PIOS)'
 		dataType: string
-		lineageTag: a2bef8c6-6586-4b79-8913-1a6d53bfd843
+		lineageTag: cd284c3e-02e9-45dd-8ff8-62f66618df5b
 		summarizeBy: none
 		sourceColumn: Chave (Poço+Fase+PIOS)
 
 	column NP
 		dataType: string
-		lineageTag: 76a32939-cbb4-4dff-8ded-5219a60c3f88
+		lineageTag: ecf7d6e3-e976-48ee-9995-a67af83f6afc
 		summarizeBy: none
 		sourceColumn: NP
 
 	column NS
 		dataType: string
-		lineageTag: 35e37c8c-245f-49eb-8cb4-78ff753731c7
+		lineageTag: 923a8361-938c-40cf-b5f1-7579ca6242d9
 		summarizeBy: none
 		sourceColumn: NS
 
 	column NP_Norm
 		dataType: string
-		lineageTag: 4cb1b6bf-a080-4048-9fca-244ab249cf06
+		lineageTag: 025f103a-00c2-471e-874a-83b96deb7b26
 		summarizeBy: none
 		sourceColumn: NP_Norm
 
 	column NS_Norm
 		dataType: string
-		lineageTag: 47b846e0-1a7c-414e-8fa0-76ec2790e989
+		lineageTag: bb4718c6-dee4-416e-bf9b-6b9fd6f6bd19
 		summarizeBy: none
 		sourceColumn: NS_Norm
 
 	column NP_NS
 		dataType: string
-		lineageTag: 9d95b614-35ef-4995-88a7-d119e8a5f315
+		lineageTag: 4c67df4b-9f1a-4e49-938d-204c317e67f3
 		summarizeBy: none
 		sourceColumn: NP_NS
 
 	column 'Descrição'
 		dataType: string
-		lineageTag: 49bd527d-05b3-458b-b74d-f0d3fd43477a
+		lineageTag: 2283a449-b0e2-44db-ad11-0452b53b058c
 		summarizeBy: none
 		sourceColumn: Descrição
 
 	column Fase
 		dataType: string
-		lineageTag: e05226af-5f69-4999-8683-aa7d1004bc9d
+		lineageTag: b1986580-f4c4-4479-b728-65239ba1f983
 		summarizeBy: none
 		sourceColumn: Fase
 
 	column TAG
 		dataType: string
-		lineageTag: 9fbd5d4a-7f77-4f9e-9568-b2ccc048f4dc
+		lineageTag: 3df699f4-5d01-42f3-98ae-dbfb42a9069a
 		summarizeBy: none
 		sourceColumn: TAG
 
 	column 'Sonda / Barco'
 		dataType: string
-		lineageTag: 8b0ab4cd-e135-43fb-9e81-63b591c4feaa
+		lineageTag: a336a381-66cd-4d24-9b65-f15208ab2189
 		summarizeBy: none
 		sourceColumn: Sonda / Barco
 
 	column 'Poço'
 		dataType: string
-		lineageTag: f369966e-5a88-42db-8132-340a98a9c91e
+		lineageTag: dfe81dc6-c0c8-41ac-b309-192de5066760
 		summarizeBy: none
 		sourceColumn: Poço
 
 	column 'Responsável DISP'
 		dataType: string
-		lineageTag: bffb2a75-ffaa-47ea-b05b-5cb985236df4
+		lineageTag: e70ca4f6-2771-42cf-9f03-b9b9d0707ab0
 		summarizeBy: none
 		sourceColumn: Responsável DISP
 
 	column 'Status Processo'
 		dataType: string
-		lineageTag: 46e1adf3-42e8-4663-9441-bf6234823066
+		lineageTag: 872698a0-e136-4da5-9eb8-fdb6b5938ed8
 		summarizeBy: none
 		sourceColumn: Status Processo
 
 	column 'Status manutenção'
 		dataType: string
-		lineageTag: 1a395466-91b3-4a54-8d50-5522a07e8a7f
+		lineageTag: 88518e8e-ad77-4f2e-9843-661ee5c51e49
 		summarizeBy: none
 		sourceColumn: Status manutenção
 
 	column 'Vencimento da manutenção'
 		dataType: dateTime
 		formatString: dd/mm/yyyy
-		lineageTag: f057a2c6-1076-477e-bcca-9083c5afdc05
+		lineageTag: 19c09f0c-a554-493e-af8f-48205e4f3574
 		summarizeBy: none
 		sourceColumn: Vencimento da manutenção
 
 	column Venc_Final
 		dataType: dateTime
 		formatString: dd/mm/yyyy
-		lineageTag: 0522d5df-a800-401d-92b1-8874551be266
+		lineageTag: d3f8960c-b232-4757-875e-1f497a6b5021
 		summarizeBy: none
 		sourceColumn: Venc_Final
 
 	column Venc_Origem
 		dataType: string
-		lineageTag: ccf22d9a-7095-495a-82e1-3d20a6ff7b09
+		lineageTag: 9e608d83-7bec-4610-bb41-440a3ffef1a0
 		summarizeBy: none
 		sourceColumn: Venc_Origem
 
 	column 'Status PCM'
 		dataType: string
-		lineageTag: 6922d49b-0da7-41b9-9228-101e33e824ad
+		lineageTag: 35b29ec8-45df-4064-8f7c-c2c36b9d5035
 		summarizeBy: none
 		sourceColumn: Status PCM
 
 	column 'Motivo da RT em avanço'
 		dataType: string
-		lineageTag: 1fbb46ed-ade8-40f5-9d15-bf129a4591d2
+		lineageTag: 1fd35c6e-b63d-4ae8-87a4-1620f1d3c3c9
 		summarizeBy: none
 		sourceColumn: Motivo da RT em avanço
 
 	column 'Relatório de END'
 		dataType: string
-		lineageTag: 6d2ecaf5-eab1-403e-8c4f-6a6814be6ce1
+		lineageTag: f3800669-f810-468f-9913-d3bf54061afc
 		summarizeBy: none
 		sourceColumn: Relatório de END
 

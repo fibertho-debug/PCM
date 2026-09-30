@@ -1,30 +1,30 @@
 table END_ultimo
-	lineageTag: fdfa39ad-e664-48fa-832d-d0f314d12bb2
+	lineageTag: 4a715e21-a767-4992-b7dc-c6abd3094c07
 
 	column NP_NS
 		dataType: string
-		lineageTag: f34d5914-a908-40e3-bc38-edd4638e6a89
+		lineageTag: b3264c29-f09d-4de6-84d0-2fe4ece4861f
 		summarizeBy: none
 		sourceColumn: NP_NS
 
 	column Validade_END
 		dataType: dateTime
 		formatString: dd/mm/yyyy
-		lineageTag: c12827f1-75b9-4d6c-9cb0-417894835145
+		lineageTag: 6716a055-6ede-43ac-bada-f02eccc426bc
 		summarizeBy: none
 		sourceColumn: Validade_END
 
 	column Registros_END
 		dataType: int64
 		formatString: 0
-		lineageTag: 29e591e3-8ba5-40f1-b167-22150d11cc6d
+		lineageTag: 2e18bc2d-09b7-444f-b8db-5fdc446ebc1f
 		summarizeBy: none
 		sourceColumn: Registros_END
 
 	column Datas_invalidas
 		dataType: int64
 		formatString: 0
-		lineageTag: bd262e39-283b-4640-81b1-2c0a512a045d
+		lineageTag: ce05d221-ee0c-4f33-ab2c-941a0eb1a404
 		summarizeBy: none
 		sourceColumn: Datas_invalidas
 

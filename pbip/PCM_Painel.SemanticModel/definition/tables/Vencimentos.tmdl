@@ -1,5 +1,5 @@
 table Vencimentos
-	lineageTag: cf2c331b-18ab-4ee3-b7eb-cb12b529b391
+	lineageTag: 73fb4f2d-4f71-4b1f-942e-11f437d1cc12
 
 	measure 'Itens na Faixa' =
 			VAR o = SELECTEDVALUE ( Faixa_Venc[Ordem] )
@@ -21,7 +21,7 @@ table Vencimentos
 			        ) + 0
 			    )
 		formatString: #,0
-		lineageTag: a3a1dca5-eb70-415a-b5ab-d9422d2407f5
+		lineageTag: c884e3c0-78fc-4b30-9db3-ffe5f02de980
 
 	measure 'Dias até vencer' =
 			MINX (
@@ -29,25 +29,25 @@ table Vencimentos
 			    IF ( ISBLANK ( Vencimentos[Data] ), BLANK (), DATEDIFF ( TODAY (), Vencimentos[Data], DAY ) )
 			)
 		formatString: 0
-		lineageTag: a73f8cc2-1f5c-40cc-9803-97b060f12b14
+		lineageTag: ec447d54-9dbb-4bee-8d2f-6bfaa96f8287
 
 	column Cont_op_ID
 		dataType: int64
 		formatString: 0
-		lineageTag: a0e1c96b-141b-4c8f-8e36-5dda90e189b0
+		lineageTag: 3f640cb7-b8fa-47e3-ae9a-c03cbf2675ab
 		summarizeBy: none
 		sourceColumn: Cont_op_ID
 
 	column Data
 		dataType: dateTime
 		formatString: dd/mm/yyyy
-		lineageTag: 4ab04e8f-b53c-4076-99b1-9d37ab1daa41
+		lineageTag: d02417fb-a379-4ca1-b3f7-142b8ee5d615
 		summarizeBy: none
 		sourceColumn: Data
 
 	column Tipo
 		dataType: string
-		lineageTag: c090bc94-f1c1-44f9-8cd1-27266b5246dc
+		lineageTag: 03e3a60e-61ae-4ef6-b93c-f71148306057
 		summarizeBy: none
 		sourceColumn: Tipo
 
