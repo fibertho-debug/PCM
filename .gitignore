@@ -1,0 +1,5 @@
+# Dados reais (NP, NS, poços, nomes) ficam fora do git
+fase0/relatorios/*.csv
+*.xlsm
+*.xlsx
+__pycache__/
